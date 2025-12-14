@@ -3,231 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibhushan Pandey | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Bibhushan Pandey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- Reset & Base Styles --- */
+        /* --- 1. Apple Design System Variables --- */
         :root {
-            --primary-color: #2c3e50; /* Professional Slate */
-            --accent-color: #e67e22;  /* Creative Orange */
-            --light-bg: #f8f9fa;
-            --dark-bg: #1a1a1a;
-            --text-color: #333;
-            --text-light: #ecf0f1;
+            --bg-color: #F5F5F7;          
+            --card-bg: #FFFFFF;
+            --text-primary: #1D1D1F;      
+            --text-secondary: #86868B;    
+            --accent-blue: #2997FF;       
+            --button-hover: #0071E3;
+            --nav-blur: rgba(255, 255, 255, 0.8);
+            --transition-spring: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Apple 'Spring' feel */
         }
 
+        /* --- 2. Base Reset & Typography --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased; 
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        h1, h2, h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
+        /* --- 3. Animation Utility Classes --- */
+        /* Elements start hidden and slide up */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: 0.3s;
+        /* The class JS adds to trigger animation */
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        ul {
-            list-style: none;
-        }
+        /* Staggered delays for grid items */
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
 
-        /* --- Navigation --- */
+        /* --- 4. Navigation (Glassmorphism) --- */
         nav {
-            background: #fff;
-            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 52px;
+            background: var(--nav-blur);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            transition: top 0.3s;
+        }
+
+        .nav-inner {
+            width: 100%;
+            max-width: 980px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0 20px;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .logo span {
-            color: var(--accent-color);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
         }
 
         .nav-links a {
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
+            font-size: 12px;
+            color: var(--text-primary);
+            margin-left: 24px;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
         }
 
         .nav-links a:hover {
-            color: var(--accent-color);
+            opacity: 1;
+            color: var(--accent-blue);
         }
 
-        /* --- Hero Section --- */
+        /* --- 5. Hero Section --- */
         header {
             height: 100vh;
-            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: var(--text-light);
-            padding: 0 1rem;
+            padding: 0 20px;
+            background: #fff;
         }
 
-        header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+        .hero-content h1 {
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #1d1d1f 0%, #434344 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        header p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 2rem;
+        .hero-content p {
+            font-size: clamp(21px, 4vw, 28px);
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 700px;
+            margin: 0 auto 40px auto;
         }
 
-        .btn {
+        .cta-button {
             display: inline-block;
-            background: var(--accent-color);
-            color: #fff;
-            padding: 0.8rem 2rem;
-            border-radius: 5px;
-            font-weight: 600;
-            border: 2px solid var(--accent-color);
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 12px 26px;
+            border-radius: 30px;
+            font-size: 17px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .btn:hover {
-            background: transparent;
-            color: var(--accent-color);
+        .cta-button:hover {
+            background-color: var(--button-hover);
+            transform: scale(1.05);
         }
 
-        /* --- About Section --- */
-        #about {
-            padding: 5rem 10%;
-            text-align: center;
+        /* --- 6. Bento Grid (Interests) --- */
+        #work {
+            padding: 120px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            position: relative;
-            display: inline-block;
+        .section-header {
+            margin-bottom: 50px;
         }
 
-        .section-title::after {
-            content: '';
-            width: 50px;
-            height: 3px;
-            background: var(--accent-color);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+        .section-header h2 {
+            font-size: 48px;
+            font-weight: 700;
         }
 
-        .about-content {
+        /* Grid Layout */
+        .grid-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            text-align: left;
-        }
-
-        /* --- Expertise Grid --- */
-        #expertise {
-            background: var(--light-bg);
-            padding: 5rem 10%;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 500px 500px; /* Fixed height for consistent visuals */
+            gap: 24px;
         }
 
         .card {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: transform 0.3s;
+            background: var(--card-bg);
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            transition: var(--transition-spring);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Text at bottom */
+            padding: 40px;
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            z-index: 10;
         }
 
-        .card i {
-            font-size: 2.5rem;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
+        /* Card Background Images */
+        .bg-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .card:hover .bg-img {
+            transform: scale(1.05); /* Zoom effect on hover */
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%);
+            z-index: 2;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 3;
+            color: white;
+            transform: translateY(0);
+            transition: transform 0.5s;
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--accent-blue);
         }
 
         .card h3 {
-            margin-bottom: 1rem;
-            color: var(--primary-color);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
         }
 
-        /* --- Footer --- */
+        .card p {
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.4;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Specific Card Styling */
+        
+        /* 1. Videography (Top Left - Big) */
+        .item-video {
+            grid-column: span 8;
+        }
+        .item-video .bg-img {
+            background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1600&auto=format&fit=crop');
+        }
+
+        /* 2. Chem Eng (Top Right - Small) */
+        .item-chem {
+            grid-column: span 4;
+            background: #fff;
+            justify-content: space-between;
+        }
+        /* Overriding Chem Card for "Apple Product Card" look (White bg, black text) */
+        .item-chem .card-content { color: var(--text-primary); }
+        .item-chem .card-overlay { display: none; }
+        .item-chem .bg-img {
+            height: 60%;
+            top: 0;
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1000&auto=format&fit=crop');
+            border-radius: 20px;
+            transform: none !important; /* Disable zoom on this static image */
+            margin-bottom: 20px;
+        }
+
+        /* 3. Travel (Bottom Left - Small) */
+        .item-travel {
+            grid-column: span 4;
+        }
+        .item-travel .bg-img {
+            background-image: url('https://images.unsplash.com/photo-1540397106260-e24a59faf086?q=80&w=1000&auto=format&fit=crop'); /* Hiking boots/mountains */
+        }
+
+        /* 4. Editing (Bottom Right - Big) */
+        .item-edit {
+            grid-column: span 8;
+        }
+        .item-edit .bg-img {
+            background-image: url('https://images.unsplash.com/photo-1574717436401-0638518a1a1f?q=80&w=1600&auto=format&fit=crop'); /* Editing timeline */
+        }
+
+        /* --- 7. Footer --- */
         footer {
-            background: var(--dark-bg);
-            color: var(--text-light);
-            padding: 3rem 10%;
+            background: var(--bg-color);
+            padding: 80px 20px;
             text-align: center;
         }
 
-        .social-links {
-            margin-bottom: 1.5rem;
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
         }
 
-        .social-links a {
-            font-size: 1.5rem;
-            margin: 0 10px;
-            color: var(--text-light);
+        .footer-social a {
+            font-size: 24px;
+            color: var(--text-primary);
+            transition: color 0.3s;
         }
 
-        .social-links a:hover {
-            color: var(--accent-color);
+        .footer-social a:hover {
+            color: var(--accent-blue);
         }
 
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none; 
+        .copyright {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            .grid-container {
+                display: flex;
+                flex-direction: column;
             }
-            
+            .grid-container {
+                gap: 20px;
+            }
+            .card {
+                min-height: 400px;
+            }
             header h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
+                font-size: 48px;
             }
         }
     </style>
@@ -235,77 +335,107 @@
 <body>
 
     <nav>
-        <div class="logo">Bibhushan<span>.</span></div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#expertise">Expertise</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+        <div class="nav-inner">
+            <a href="#" class="logo">Bibhushan Pandey</a>
+            <div class="nav-links">
+                <a href="#work">Expertise</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
     </nav>
 
-    <header id="home">
-        <h1>Hi, I'm Bibhushan Pandey</h1>
-        <p>Bridging the gap between creative storytelling and engineering precision.</p>
-        <a href="#expertise" class="btn">View My Work</a>
+    <header>
+        <div class="hero-content">
+            <h1 class="reveal">Creative Vision.<br>Precision Engineering.</h1>
+            <p class="reveal delay-100">Bibhushan Pandey blends the art of storytelling with the science of chemical engineering.</p>
+            <div class="reveal delay-200">
+                <a href="#work" class="cta-button">Explore Areas</a>
+            </div>
+        </div>
     </header>
 
-    <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>I am a multifaceted professional driven by curiosity and precision. With a background in <strong>Chemical Engineering</strong>, I possess the analytical skills to solve complex problems. However, my passion extends beyond the lab.</p>
-                <br>
-                <p>I am also an avid <strong>Videographer and Video Editor</strong>, capturing moments and weaving them into compelling narratives. As a <strong>Travel Guide</strong>, I love exploring new cultures and helping others experience the beauty of the world.</p>
-            </div>
-            <div class="about-skills">
-                <div style="background: #ddd; height: 300px; width: 100%; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-                    <span style="color: #777;">[Insert Your Photo Here]</span>
+    <section id="work">
+        <div class="section-header reveal">
+            <h2>The Portfolio.</h2>
+        </div>
+
+        <div class="grid-container">
+            
+            <div class="card item-video reveal delay-100">
+                <div class="bg-img"></div>
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="card-icon"><i class="fas fa-video"></i></div>
+                    <h3>Videography</h3>
+                    <p>Capturing cinematic moments. From composition to lighting, every frame tells a story.</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="expertise">
-        <div style="text-align: center;">
-            <h2 class="section-title">My Areas of Interest</h2>
-        </div>
-        <br><br>
-        <div class="card-grid">
-            <div class="card">
-                <i class="fas fa-video"></i>
-                <h3>Videography</h3>
-                <p>Capturing high-quality footage with a focus on composition, lighting, and storytelling dynamics.</p>
+            <div class="card item-chem reveal delay-200">
+                <div class="bg-img"></div> <div class="card-content">
+                    <div style="margin-top: auto;">
+                        <div class="card-icon" style="color: #000;"><i class="fas fa-flask"></i></div>
+                        <h3>Chemical Engineer</h3>
+                        <p style="color: #666;">Process optimization, research, and industrial precision.</p>
+                    </div>
+                </div>
             </div>
-            <div class="card">
-                <i class="fas fa-film"></i>
-                <h3>Video Editing</h3>
-                <p>Post-production wizardry using industry-standard software to bring raw footage to life.</p>
+
+            <div class="card item-travel reveal delay-100">
+                <div class="bg-img"></div>
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="card-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h3>Travel Guide</h3>
+                    <p>Curating immersive journeys through unseen landscapes.</p>
+                </div>
             </div>
-            <div class="card">
-                <i class="fas fa-plane-departure"></i>
-                <h3>Travel Guide</h3>
-                <p>Curating memorable journeys and providing local insights for immersive travel experiences.</p>
+
+            <div class="card item-edit reveal delay-200">
+                <div class="bg-img"></div>
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="card-icon"><i class="fas fa-film"></i></div>
+                    <h3>Video Editing</h3>
+                    <p>Post-production mastery. Color grading, sound design, and narrative pacing.</p>
+                </div>
             </div>
-            <div class="card">
-                <i class="fas fa-flask"></i>
-                <h3>Chemical Engineer</h3>
-                <p>Process optimization, analytical problem solving, and technical research in engineering fields.</p>
-            </div>
+
         </div>
     </section>
 
     <footer id="contact">
-        <h2>Let's Connect</h2>
-        <p>Whether you need a video project, engineering consultation, or travel advice.</p>
-        <div class="social-links">
+        <div class="footer-social reveal">
             <a href="#"><i class="fab fa-linkedin"></i></a>
             <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
         </div>
-        <p>&copy; 2025 Bibhushan Pandey. All Rights Reserved.</p>
+        <p class="copyright reveal delay-100">Copyright © 2025 Bibhushan Pandey. All rights reserved.</p>
     </footer>
+
+    <script>
+        // This script checks if an element is in the viewport
+        // If it is, it adds the 'active' class to trigger the animation
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, observerOptions);
+
+            const elementsToReveal = document.querySelectorAll('.reveal');
+            elementsToReveal.forEach(el => observer.observe(el));
+        });
+    </script>
 
 </body>
 </html>
