@@ -3,117 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BP | Particle System</title>
+    <title>BP | Impact Architect</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --page-margin: 12vw; 
+            --page-margin: 12vw;
             --nav-height: 100px;
-            --text-secondary: #AAAAAA;    
-            --transition-smooth: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --text-secondary: #AAAAAA;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        html, body { 
+        html {
+            scroll-behavior: smooth;
+            background: #000;
+        }
+
+        body {
             width: 100%;
             height: 100%;
+            background: #000;
             color: #fff;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            font-family: "Space Mono", monospace;
             overflow-x: hidden;
         }
 
-        /* CANVAS */
-        #particle-canvas {
+        /* SCROLL MARGIN */
+        section, header, footer {
+            scroll-margin-top: var(--nav-height);
+        }
+
+        /* GRID CANVAS */
+        #grid-canvas {
             position: fixed;
             inset: 0;
-            width: 100vw;
-            height: 100vh;
             z-index: 0;
-            background: #000;
             pointer-events: none;
         }
 
-        nav, section, header, footer {
+        nav, header, section, footer {
             position: relative;
             z-index: 1;
         }
 
+        /* ===== NAVIGATION ===== */
         nav {
-            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
-            z-index: 1000; display: flex; align-items: center; justify-content: space-between;
-            padding: 0 var(--page-margin);
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
-        }
-
-        .logo { font-size: 26px; font-weight: 800; color: #fff; text-decoration: none; }
-
-        .nav-links { display: flex; gap: 32px; }
-        .nav-links a {
-            font-size: 14px; color: #fff; text-decoration: none;
-            padding: 10px 20px; border-radius: 12px; transition: var(--transition-smooth);
-        }
-        .nav-links a:hover { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
-
-        section, header {
-            padding: 120px var(--page-margin);
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: var(--nav-height);
+            padding: 0 var(--page-margin);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
+            z-index: 1000;
         }
 
-        .section-tag {
-            font-size: 11px; text-transform: uppercase; letter-spacing: 5px;
-            color: var(--text-secondary); margin-bottom: 24px; opacity: 0.6;
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
         }
 
-        header.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+        .nav-links {
+            display: flex;
+            gap: 16px;
+        }
 
-        .hero-content h1 { 
+        .nav-links a {
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 22px;
+            border-radius: 14px;
+            transition: all 0.35s ease;
+            background: rgba(255,255,255,0);
+            border: 1px solid transparent;
+        }
+
+        /* ===== FROSTED GLASS HOVER EFFECT ===== */
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow:
+                inset 0 0 0 1px rgba(255,255,255,0.05),
+                0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        /* ===== HERO ===== */
+        header.hero {
+            min-height: 100vh;
+            padding: 120px var(--page-margin);
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            font-family: "Syne", sans-serif;
+        }
+
+        .hero-content h1 {
             font-size: clamp(44px, 8vw, 95px);
-            font-weight: 700; line-height: 1.05; letter-spacing: -0.05em;
-            margin-bottom: 32px;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            margin-bottom: 12px;
             background: linear-gradient(to bottom, #fff, #888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-content p {
-            color: var(--text-secondary);
-            font-size: clamp(18px, 2vw, 24px);
-            max-width: 700px;
-            line-height: 1.5;
-        }
-
-        #about { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; }
-
-        .about-title h2 {
-            font-size: clamp(32px, 4vw, 48px);
-            font-weight: 700;
-        }
-
-        .about-body p {
-            font-size: 18px;
-            line-height: 1.7;
-            color: var(--text-secondary);
+        .hero-content h2 {
+            font-size: clamp(22px, 4vw, 36px);
+            font-weight: 500;
             margin-bottom: 24px;
         }
 
+        .hero-content p {
+            font-family: "Satoshi", sans-serif;
+            font-size: clamp(16px, 2vw, 22px);
+            max-width: 720px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 120px var(--page-margin);
+        }
+
+        .section-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            opacity: 0.6;
+            display: block;
+        }
+
+        /* ABOUT */
+        #about {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+        }
+
+        .about-title h2 {
+            font-family: "Syne", sans-serif;
+            font-size: clamp(32px, 4vw, 48px);
+        }
+
+        .about-body p {
+            font-family: "Satoshi", sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        /* EXPERIENCE */
         .exp-row {
             display: grid;
             grid-template-columns: 1fr 2fr;
             padding: 40px 0;
-            transition: var(--transition-smooth);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
-
-        .exp-row:hover { transform: translateX(10px); }
 
         .exp-time {
             font-size: 14px;
             color: var(--text-secondary);
-            font-weight: 600;
         }
 
+        .exp-info h3 {
+            font-family: "Syne", sans-serif;
+            margin-bottom: 10px;
+        }
+
+        /* WORK */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
@@ -127,51 +208,65 @@
             padding: 48px;
             height: 500px;
             backdrop-filter: blur(10px);
-            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: 0.4s ease;
+        }
+        
+        .card:hover {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.05);
         }
 
-        .card:hover {
-            background: rgba(255,255,255,0.06);
-            border-color: rgba(255,255,255,0.4);
+        .card h3 {
+            font-family: "Syne", sans-serif;
+            font-size: 32px;
         }
 
         .wide { grid-column: span 7; }
         .narrow { grid-column: span 5; }
 
+        /* FOOTER */
         footer {
             padding: 80px var(--page-margin);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .socials { display: flex; gap: 40px; }
-        .socials a { color: #fff; font-size: 20px; opacity: 0.5; transition: 0.3s; }
-        .socials a:hover { opacity: 1; }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        .socials {
+            display: flex;
+            gap: 40px;
         }
 
-        .reveal.active {
+        .socials a {
+            color: #fff;
+            font-size: 20px;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        .socials a:hover {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(-3px);
         }
 
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             :root { --page-margin: 30px; }
-            #about, .exp-row { grid-template-columns: 1fr; }
+            #about { grid-template-columns: 1fr; }
             .nav-links { display: none; }
             .bento-grid { display: flex; flex-direction: column; }
+            .exp-row { grid-template-columns: 1fr; gap: 10px; }
         }
     </style>
 </head>
 
 <body>
 
-<canvas id="particle-canvas"></canvas>
+<canvas id="grid-canvas"></canvas>
 
 <nav>
     <a href="#top" class="logo">BP</a>
@@ -185,38 +280,54 @@
 
 <header class="hero" id="top">
     <div class="hero-content">
-        <h1 class="reveal">Bibhushan Pandey.</h1>
-        <p class="reveal">Engineering precision meets cinematic depth.</p>
+        <h1>Bibhushan Pandey.</h1>
+        <h2>I focus on building systems that matter.</h2>
+        <p>
+            A hybrid creator bridging the gap between science and soul. Whether I am architecting chemical workflows,
+            documenting cinematic narratives into a single pursuit of excellence, or engineering educational equity
+            for rural youth, my work is driven by a single philosophy: engineering the perfect narrative.
+        </p>
     </div>
 </header>
 
 <section id="about">
-    <div class="about-title reveal">
+    <div class="about-title">
         <span class="section-tag">01 // Identity</span>
         <h2>Bridging Science & Visual Narrative.</h2>
     </div>
-    <div class="about-body reveal">
-        <p>I operate at the intersection of engineering and visual production.</p>
+    <div class="about-body">
+        <p>
+            I operate at the intersection of engineering and visual production. My approach is rooted in the belief 
+            that complexity should be met with clarity and aesthetic grace.
+        </p>
     </div>
 </section>
 
 <section id="experience">
-    <span class="section-tag reveal">02 // The Journey</span>
-    <div class="exp-row reveal">
+    <span class="section-tag">02 // The Journey</span>
+
+    <div class="exp-row">
         <div class="exp-time">2023 — PRES</div>
-        <div><h3>Technical Operations Lead</h3><p>Industrial safety.</p></div>
+        <div class="exp-info">
+            <h3>Technical Operations Lead</h3>
+            <p>Industrial safety and process automation.</p>
+        </div>
     </div>
-    <div class="exp-row reveal">
-        <div class="exp-time">2021 — 2023</div>
-        <div><h3>Process Engineer</h3><p>Thermodynamics.</p></div>
+    
+    <div class="exp-row">
+        <div class="exp-time">2020 — 2023</div>
+        <div class="exp-info">
+            <h3>Chemical Process Engineer</h3>
+            <p>Thermodynamic modeling and workflow optimization.</p>
+        </div>
     </div>
 </section>
 
 <section id="work">
-    <span class="section-tag reveal">03 // Selected Work</span>
+    <span class="section-tag">03 // Selected Work</span>
     <div class="bento-grid">
-        <div class="card wide reveal"><h3>Cinematography</h3></div>
-        <div class="card narrow reveal"><h3>Engineering</h3></div>
+        <div class="card wide"><h3>Cinematography</h3></div>
+        <div class="card narrow"><h3>Engineering</h3></div>
     </div>
 </section>
 
@@ -229,19 +340,17 @@
 </footer>
 
 <script>
-const canvas = document.getElementById("particle-canvas");
+const canvas = document.getElementById("grid-canvas");
 const ctx = canvas.getContext("2d");
 
-let particles = [];
-let shootingStars = [];
-const COUNT = 120;
-
-const mouse = { x: null, y: null, radius: 120 };
+let w, h;
+const GRID = 120;
+const mouse = { x: -9999, y: -9999 };
 
 function resize() {
     const dpr = devicePixelRatio || 1;
-    canvas.width = innerWidth * dpr;
-    canvas.height = innerHeight * dpr;
+    w = canvas.width = innerWidth * dpr;
+    h = canvas.height = innerHeight * dpr;
     canvas.style.width = innerWidth + "px";
     canvas.style.height = innerHeight + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -249,115 +358,62 @@ function resize() {
 resize();
 addEventListener("resize", resize);
 
-class Particle {
-    constructor() {
-        this.x = Math.random() * innerWidth;
-        this.y = Math.random() * innerHeight;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.size = Math.random() * 1.5 + 0.5;
-        this.alpha = Math.random() * 0.5 + 0.2;
-    }
-    update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (mouse.x !== null) {
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const dist = Math.hypot(dx, dy);
-            if (dist < mouse.radius) {
-                const f = (mouse.radius - dist) / mouse.radius;
-                this.x -= dx * f * 0.02;
-                this.y -= dy * f * 0.02;
-            }
-        }
-
-        if (this.x < 0) this.x = innerWidth;
-        if (this.x > innerWidth) this.x = 0;
-        if (this.y < 0) this.y = innerHeight;
-        if (this.y > innerHeight) this.y = 0;
-    }
-    draw() {
-        ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
-
-class ShootingStar {
-    constructor() {
-        this.x = Math.random() * innerWidth;
-        this.y = Math.random() * innerHeight * 0.5;
-        this.len = Math.random() * 300 + 100;
-        this.speed = Math.random() * 8 + 6;
-        this.angle = Math.PI / 4;
-        this.life = 0;
-        this.maxLife = 60;
-    }
-    update() {
-        this.x += Math.cos(this.angle) * this.speed;
-        this.y += Math.sin(this.angle) * this.speed;
-        this.life++;
-    }
-    draw() {
-        const g = ctx.createLinearGradient(
-            this.x, this.y,
-            this.x - Math.cos(this.angle) * this.len,
-            this.y - Math.sin(this.angle) * this.len
-        );
-        g.addColorStop(0, "rgba(255,255,255,0.8)");
-        g.addColorStop(1, "rgba(255,255,255,0)");
-        ctx.strokeStyle = g;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(
-            this.x - Math.cos(this.angle) * this.len,
-            this.y - Math.sin(this.angle) * this.len
-        );
-        ctx.stroke();
-    }
-}
-
-for (let i = 0; i < COUNT; i++) particles.push(new Particle());
-
 addEventListener("mousemove", e => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
 });
 
-addEventListener("mouseleave", () => {
-    mouse.x = mouse.y = null;
-});
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
-
-    if (Math.random() < 0.003) shootingStars.push(new ShootingStar());
-
-    shootingStars.forEach((s, i) => {
-        s.update();
-        s.draw();
-        if (s.life > s.maxLife) shootingStars.splice(i, 1);
-    });
-
-    requestAnimationFrame(animate);
+function warp(x, y) {
+    const dx = x - mouse.x;
+    const dy = y - mouse.y;
+    const dist = Math.hypot(dx, dy);
+    const radius = 240;
+    if (dist > radius) return { x, y };
+    const force = (1 - dist / radius) ** 2;
+    return { x: x + dx * force * 0.15, y: y + dy * force * 0.15 };
 }
-animate();
 
-/* Reveal observer */
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => e.isIntersecting && e.target.classList.add("active"));
-}, { threshold: 0.1 });
+function draw() {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ctx.strokeStyle = "rgba(255,255,255,0.06)";
+    ctx.lineWidth = 1;
 
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    // Vertical lines: iterate past width to touch edge
+    for (let x = 0; x <= innerWidth + GRID; x += GRID) {
+        ctx.beginPath();
+        for (let y = 0; y <= innerHeight + GRID; y += 20) { // higher resolution line segment for smoother warp
+            const p = warp(x, y);
+            ctx.lineTo(p.x, p.y);
+        }
+        ctx.stroke();
+    }
+
+    // Horizontal lines: iterate past height to touch edge
+    for (let y = 0; y <= innerHeight + GRID; y += GRID) {
+        ctx.beginPath();
+        for (let x = 0; x <= innerWidth + GRID; x += 20) {
+            const p = warp(x, y);
+            ctx.lineTo(p.x, p.y);
+        }
+        ctx.stroke();
+    }
+
+    // Dots
+    for (let x = 0; x <= innerWidth + GRID; x += GRID) {
+        for (let y = 0; y <= innerHeight + GRID; y += GRID) {
+            const p = warp(x, y);
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(255,255,255,0.85)";
+            ctx.shadowColor = "rgba(255,255,255,0.6)";
+            ctx.shadowBlur = 6;
+            ctx.arc(p.x, p.y, 1.6, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+    ctx.shadowBlur = 0;
+    requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
