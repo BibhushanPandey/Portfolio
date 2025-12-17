@@ -37,11 +37,9 @@ nav {
 .nav-links a {font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#fff;text-decoration:none;padding:14px 22px;border-radius:14px;transition:all 0.35s ease;}
 .nav-links a:hover {background: rgba(255,255,255,0.08);backdrop-filter: blur(14px);}
 
-/* Menu Toggle Hidden by Default */
-#menu-toggle, .menu-icon { display: none; }
+#menu-toggle, .menu-icon, .close-icon { display: none; }
 
 /* --- DESKTOP HERO LAYOUT --- */
-
 header.hero {
     min-height:100vh;
     display:flex;
@@ -123,7 +121,6 @@ section {padding:120px var(--page-margin);}
 #about {display:grid;grid-template-columns:1fr 1.5fr;gap:60px;}
 .about-title h2 {font-family:"Syne",sans-serif;font-size:clamp(32px,4vw,48px);}
 .about-body p {font-family:"Satoshi",sans-serif;font-size:18px;line-height:1.7;color:var(--text-secondary);}
-#experience {}
 .exp-row {display:grid;grid-template-columns:1fr 2fr;padding:40px 0;border-top:none;}
 .exp-time {font-size:14px;color:var(--text-secondary);}
 .exp-info h3 {font-family:"Syne",sans-serif;margin-bottom:10px;}
@@ -137,147 +134,205 @@ footer {padding:80px var(--page-margin);display:flex;justify-content:space-betwe
 .socials a {color:#fff;font-size:20px;opacity:0.5;transition:0.3s;}
 .socials a:hover {opacity:1;transform:translateY(-3px);}
 
-
-/* --- MOBILE SPECIFIC STYLES --- */
+/* --- MOBILE VIEW --- */
 @media (max-width:1000px){
     :root {
         --page-margin: 6vw;
         --nav-height: 70px; 
     }
     
-    nav { 
-        padding: 0 var(--page-margin); 
-    }
-    .logo {
-        font-size: 20px;
-        z-index: 1001;
+    nav { padding: 0 var(--page-margin); }
+    
+    /* BP LOGO MODS */
+    .logo { 
+        font-size: 22px; /* Increased size */
+        margin-left: 15px; /* Moved slightly right */
+        z-index: 1001; 
     }
 
-    /* Hide text links and show icon */
     .nav-links { display: none; }
     
+    /* BOHR ATOM MODEL (SMALLER) */
     .menu-icon {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
+        display: block;
+        width: 32px; /* Smaller container */
+        height: 32px;
+        position: relative;
         cursor: pointer;
         z-index: 1001;
-        width: 30px;
     }
 
-    /* Theme-matched 3 bar icon (Technical/Minimalist) */
-    .menu-icon span {
-        display: block;
-        width: 100%;
-        height: 1px; /* Thin line for engineering feel */
+    .menu-icon .nucleus {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 4px; height: 4px; /* Smaller nucleus */
         background: #fff;
-        transition: 0.3s ease;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 8px #fff;
+        transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    /* Option: show links when toggle is checked (Simple CSS Dropdown) */
+    .menu-icon span {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 26px; height: 10px; /* Smaller orbitals */
+        border: 1px solid rgba(255,255,255,0.4);
+        border-radius: 50%;
+        display: block;
+        transition: 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .menu-icon span:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg); }
+    .menu-icon span:nth-child(3) { transform: translate(-50%, -50%) rotate(-45deg); }
+    
+    /* Shared Electron Styles with Light Trail */
+.menu-icon span:nth-child(4),
+.menu-icon span:nth-child(5) {
+    width: 3px; 
+    height: 3px; 
+    border: none; 
+    background: #fff;
+    position: absolute;
+    top: 50%; left: 50%;
+    border-radius: 50%;
+    /* Layered shadows create a motion blur trail effect */
+    box-shadow: 
+        0 0 4px #fff, 
+        0 0 8px #fff, 
+        -2px -2px 12px rgba(255,255,255,0.8),
+        2px 2px 12px rgba(255,255,255,0.8);
+}
+
+/* Electron 1: 45deg Orbit - Speed increased to 0.8s */
+.menu-icon span:nth-child(4) {
+    animation: orbit-one 0.8s linear infinite;
+}
+
+/* Electron 2: -45deg Orbit - Speed increased to 0.8s */
+.menu-icon span:nth-child(5) {
+    animation: orbit-two 0.8s linear infinite;
+}
+
+/* Precise Elliptical Keyframes for Orbit One */
+@keyframes orbit-one {
+    0%   { transform: translate(-50%, -50%) rotate(45deg) translateX(13px) translateY(0); }
+    25%  { transform: translate(-50%, -50%) rotate(45deg) translateX(0) translateY(5px); }
+    50%  { transform: translate(-50%, -50%) rotate(45deg) translateX(-13px) translateY(0); }
+    75%  { transform: translate(-50%, -50%) rotate(45deg) translateX(0) translateY(-5px); }
+    100% { transform: translate(-50%, -50%) rotate(45deg) translateX(13px) translateY(0); }
+}
+
+/* Precise Elliptical Keyframes for Orbit Two */
+@keyframes orbit-two {
+    0%   { transform: translate(-50%, -50%) rotate(-45deg) translateX(-13px) translateY(0); }
+    25%  { transform: translate(-50%, -50%) rotate(-45deg) translateX(0) translateY(-5px); }
+    50%  { transform: translate(-50%, -50%) rotate(-45deg) translateX(13px) translateY(0); }
+    75%  { transform: translate(-50%, -50%) rotate(-45deg) translateX(0) translateY(5px); }
+    100% { transform: translate(-50%, -50%) rotate(-45deg) translateX(-13px) translateY(0); }
+}
+
+/* Ensure both shoot away on click */
+#menu-toggle:checked + .menu-icon span:nth-child(4),
+#menu-toggle:checked + .menu-icon span:nth-child(5) {
+    animation: electron-shoot 0.6s forwards ease-in;
+}
+
+    .close-icon {
+        display: block;
+        position: fixed;
+        top: 22px;
+        right: var(--page-margin);
+        width: 25px;
+        height: 25px;
+        z-index: 1002;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.4s ease;
+    }
+    .close-icon::before, .close-icon::after {
+        content: '';
+        position: absolute;
+        top: 50%; left: 0;
+        width: 100%; height: 1.5px;
+        background: #fff;
+    }
+    .close-icon::before { transform: rotate(45deg); }
+    .close-icon::after { transform: rotate(-45deg); }
+
+    /* DISINTEGRATION */
+    #menu-toggle:checked ~ .close-icon { opacity: 1; pointer-events: auto; }
+    #menu-toggle:checked + .menu-icon .nucleus { transform: translate(150px, -200px) scale(0); opacity: 0; }
+    #menu-toggle:checked + .menu-icon span:nth-child(2) { transform: translate(-100px, 100px) rotate(180deg) scale(0); opacity: 0; }
+    #menu-toggle:checked + .menu-icon span:nth-child(3) { transform: translate(100px, 150px) rotate(-180deg) scale(0); opacity: 0; }
+    #menu-toggle:checked + .menu-icon span:nth-child(4) { animation: electron-shoot 0.6s forwards ease-in; }
+
+    @keyframes electron-shoot {
+        0% { transform: rotate(0deg) translateX(14px); opacity: 1; }
+        100% { transform: translate(-40vw, 30vh) scale(12); opacity: 0; }
+    }
+
     #menu-toggle:checked ~ .nav-links {
         display: flex;
         position: fixed;
         top: 0; left: 0;
         width: 100%; height: 100vh;
-        background: rgba(0,0,0,0.95);
-        backdrop-filter: blur(20px);
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 30px;
+        z-index: 999;
     }
+
     #menu-toggle:checked ~ .nav-links a {
-        font-size: 24px;
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: linkPop 0.4s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
+    @keyframes linkPop { to { opacity: 1; transform: translateY(0); } }
 
-    header.hero{
-        padding-left:0;
-        min-height: auto;
-        padding-top: 100px; 
-        padding-bottom: 80px;
-        height: auto;
-        display: block; 
+    /* HERO LAYOUT RESTORED */
+    header.hero {
+        padding-left:0; min-height: auto; padding-top: 100px; padding-bottom: 80px; height: auto; display: block; 
     }
-
     .hero-main-container {
-        display: flex;
-        flex-direction: column; 
-        position: relative; 
-        height: auto;
-        width: 100%;
-        padding: 0 var(--page-margin);
+        display: flex; flex-direction: column; position: relative; height: auto; width: 100%; padding: 0 var(--page-margin);
     }
-
     .hero-title-small {
-        font-family:"Syne",sans-serif;
-        font-size: 6.2vw; 
-        font-weight:800;
-        line-height:0.85;
-        letter-spacing:-0.04em;
-        text-align:left;
-        position:absolute;
-        left: 60%;  
-        top: calc(50% - 75.9vw); 
-        transform: translateX(-98%); 
-        z-index:10;
-        background:linear-gradient(to bottom,#fff,#999);
-        -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-        pointer-events:none;
-        white-space: nowrap; 
+        font-size: 5.7vw; position:absolute; left:91.5%; top: calc(50% - 58.9vw); transform: translateX(-98%); z-index:10; text-align: center; white-space: nowrap; 
     }
-
-    .hero-image{
-        position:relative; 
-        left:30%; top:auto;
-        transform: translateY(-120px);
-        width: 80%;
-        max-width: 450px;
-        margin:0 auto -10px auto; 
-        order: 2; 
+    .hero-image {
+        position:relative; left:30%; transform: translateX(-100px) translateY(40px); width: 50%; max-width: 450px; margin:0 auto -10px auto; order: 2; 
     }
-
-    .hero-details{
-        position:relative; 
-        left:auto; bottom: auto;
-        transform: none;
-        text-align:center;
-        margin-top: -10px;
-        transform: translateY(-140px); 
-        max-width: 100%;
-        order: 3; 
+    .hero-details {
+        position:relative; left: auto; bottom: auto; text-align: center; transform: translateY(-120px) translateX(0px); max-width: 100%; order: 3; 
     }
-
-    .hero-details-title{
-        white-space:normal;
-        transform: none;
-        font-size: 24px; 
-        margin-bottom: 15px;
-    }
-    .hero-details-text{
-        margin:0 auto;
-        transform: none;
-        font-size: 14px; 
-        max-width: 100%;
-        line-height: 1.6;
-    }
+    .hero-details-title {
+    position: relative; /* This is the "key" to unlocking movement */
+    display: block;     /* Ensures it doesn't stay on the same line as other text */
+    
+    /* ADJUST THESE NUMBERS TO MOVE IT */
+    top: -140px;  /* Negative = Up | Positive = Down */
+    left: 10px;  /* Negative = Left | Positive = Right */
+    
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+    .hero-details-text { font-size: 14px; max-width: 90%; line-height: 1.6; }
 
     section { padding: 80px var(--page-margin); }
-    #about{grid-template-columns:1fr;}
-    .exp-row{grid-template-columns:1fr;gap:10px;}
-    .wide,.narrow{
-        grid-column:span 12;
-        height: auto;
-        min-height: 300px;
-        padding: 30px;
-    }
-
-    footer {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-        padding: 40px var(--page-margin);
-    }
+    #about { grid-template-columns: 1fr; }
+    .exp-row { grid-template-columns: 1fr; gap: 10px; }
+    .wide, .narrow { grid-column: span 12; height: auto; min-height: 300px; padding: 30px; }
+    footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px var(--page-margin); }
 }
 </style>
 </head>
@@ -290,10 +345,14 @@ footer {padding:80px var(--page-margin);display:flex;justify-content:space-betwe
     <input type="checkbox" id="menu-toggle" style="display:none;">
     
     <label for="menu-toggle" class="menu-icon">
+        <div class="nucleus"></div>
+        <span></span>
         <span></span>
         <span></span>
         <span></span>
     </label>
+
+    <label for="menu-toggle" class="close-icon"></label>
 
     <div class="nav-links">
         <a href="#about" onclick="document.getElementById('menu-toggle').checked = false">About</a>
@@ -305,7 +364,7 @@ footer {padding:80px var(--page-margin);display:flex;justify-content:space-betwe
 
 <header class="hero" id="top">
 <div class="hero-main-container">
-    <h1 class="hero-title-small">Bibhushan<br>Pandey.</h1>
+    <h1 class="hero-title-small">Bibhushan Pandey.</h1>
     <div class="hero-image">
         <img src="image-gen-6-copy.png" alt="Bibhushan Pandey">
     </div>
@@ -361,16 +420,16 @@ const mouse = {x:-9999, y:-9999};
 const lights = [];
 
 function resize(){
-    const dpr = devicePixelRatio || 1;
-    w = canvas.width = innerWidth * dpr;
-    h = canvas.height = innerHeight * dpr;
-    canvas.style.width = innerWidth + "px";
-    canvas.style.height = innerHeight + "px";
+    const dpr = window.devicePixelRatio || 1;
+    w = canvas.width = window.innerWidth * dpr;
+    h = canvas.height = window.innerHeight * dpr;
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
     ctx.setTransform(dpr,0,0,dpr,0,0);
 }
 resize();
-addEventListener("resize",resize);
-addEventListener("mousemove", e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+window.addEventListener("resize",resize);
+window.addEventListener("mousemove", e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
 
 function warp(x,y){
     const dx=x-mouse.x;
@@ -385,50 +444,33 @@ function warp(x,y){
 function drawDatum(x,y,size=8){
     const p=warp(x,y);
     const s = window.innerWidth < 1000 ? size * 0.5 : size;
-    ctx.beginPath();
-    ctx.moveTo(p.x-s,p.y);
-    ctx.lineTo(p.x+s,p.y);
-    ctx.moveTo(p.x,p.y-s);
-    ctx.lineTo(p.x,p.y+s);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(p.x-s,p.y); ctx.lineTo(p.x+s,p.y); ctx.moveTo(p.x,p.y-s); ctx.lineTo(p.x,p.y+s); ctx.stroke();
 }
 function drawReferenceCircle(x,y,r){
     const p=warp(x,y);
     const radius = window.innerWidth < 1000 ? r * 0.5 : r;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,radius,0,Math.PI*2);
-    ctx.stroke();
+    ctx.beginPath(); ctx.arc(p.x,p.y,radius,0,Math.PI*2); ctx.stroke();
 }
 function drawArc(x,y,r,a1,a2){
     const p=warp(x,y);
     const radius = window.innerWidth < 1000 ? r * 0.5 : r;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,radius,a1,a2);
-    ctx.stroke();
+    ctx.beginPath(); ctx.arc(p.x,p.y,radius,a1,a2); ctx.stroke();
 }
 function drawCornerAngle(x,y,s=24){
     const p=warp(x,y);
     const size = window.innerWidth < 1000 ? s * 0.5 : s;
-    ctx.beginPath();
-    ctx.moveTo(p.x,p.y+size);
-    ctx.lineTo(p.x,p.y);
-    ctx.lineTo(p.x+size,p.y);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(p.x,p.y+size); ctx.lineTo(p.x,p.y); ctx.lineTo(p.x+size,p.y); ctx.stroke();
 }
 function drawDimension(x1,y1,x2,y2){
-    const p1=warp(x1,y1);
-    const p2=warp(x2,y2);
-    ctx.beginPath();
-    ctx.moveTo(p1.x,p1.y);
-    ctx.lineTo(p2.x,p2.y);
-    ctx.stroke();
+    const p1=warp(x1,y1); const p2=warp(x2,y2);
+    ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
 }
 
 class LightPacket{
     constructor(){
         const grid = window.innerWidth < 1000 ? 60 : 120;
-        this.gx=Math.floor(Math.random()*(innerWidth/grid))*grid;
-        this.gy=Math.floor(Math.random()*(innerHeight/grid))*grid;
+        this.gx=Math.floor(Math.random()*(window.innerWidth/grid))*grid;
+        this.gy=Math.floor(Math.random()*(window.innerHeight/grid))*grid;
         this.destX=this.gx; this.destY=this.gy; this.progress=0;
         this.speed=0.02+Math.random()*0.03;
         this.tailLength=0.6;
@@ -439,9 +481,7 @@ class LightPacket{
         const grid = window.innerWidth < 1000 ? 60 : 120;
         const dirs=[{dx:grid,dy:0},{dx:-grid,dy:0},{dx:0,dy:grid},{dx:0,dy:-grid}];
         const dir=dirs[Math.floor(Math.random()*dirs.length)];
-        this.destX=this.gx+dir.dx;
-        this.destY=this.gy+dir.dy;
-        this.progress=0;
+        this.destX=this.gx+dir.dx; this.destY=this.gy+dir.dy; this.progress=0;
     }
     update(){
         this.life--; this.progress+=this.speed;
@@ -454,12 +494,10 @@ class LightPacket{
         let tailProgress=this.progress-this.tailLength; if(tailProgress<0) tailProgress=0;
         const tailX=this.gx+(this.destX-this.gx)*tailProgress;
         const tailY=this.gy+(this.destY-this.gy)*tailProgress;
-        const pHead=warp(headX,headY);
-        const pTail=warp(tailX,tailY);
+        const pHead=warp(headX,headY); const pTail=warp(tailX,tailY);
         ctx.beginPath();
         const alpha=Math.min(this.life/20,1)*0.9;
-        ctx.strokeStyle=`rgba(255,255,255,${alpha})`;
-        ctx.lineWidth=1.5; ctx.lineCap="round"; ctx.shadowBlur=12; ctx.shadowColor="rgba(255,255,255,1)";
+        ctx.strokeStyle=`rgba(255,255,255,${alpha})`; ctx.lineWidth=1.5; ctx.lineCap="round"; ctx.shadowBlur=12; ctx.shadowColor="rgba(255,255,255,1)";
         ctx.moveTo(pTail.x,pTail.y); ctx.lineTo(pHead.x,pHead.y); ctx.stroke();
         ctx.shadowBlur=0; ctx.lineCap="butt";
     }
@@ -468,43 +506,33 @@ class LightPacket{
 function drawBlueprintArtifacts(){
     const isMobile = window.innerWidth < 1000;
     ctx.strokeStyle="rgba(255,255,255,0.12)"; ctx.lineWidth=1;
-
-    ctx.beginPath(); for(let x=0;x<=innerWidth;x+=10){ const p=warp(x,24); ctx.lineTo(p.x,p.y);} ctx.stroke();
-    for(let x=0;x<=innerWidth;x+=10){ const len=x%100===0?(isMobile?6:12):x%50===0?(isMobile?4:8):2; const p=warp(x,24); ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x,p.y+len); ctx.stroke(); }
-
+    ctx.beginPath(); for(let x=0;x<=window.innerWidth;x+=10){ const p=warp(x,24); ctx.lineTo(p.x,p.y);} ctx.stroke();
+    for(let x=0;x<=window.innerWidth;x+=10){ const len=x%100===0?(isMobile?6:12):x%50===0?(isMobile?4:8):2; const p=warp(x,24); ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x,p.y+len); ctx.stroke(); }
     ctx.font = isMobile ? "8px 'Space Mono', monospace" : "12px 'Space Mono', monospace"; 
-    ctx.fillStyle="rgba(255,255,255,0.5)"; ctx.textAlign="right"; ctx.textBaseline="middle";
-    for(let y=0;y<innerHeight;y+=50){
+    ctx.fillStyle="rgba(255,255,255,0.5)"; ctx.textAlign="right";
+    for(let y=0;y<window.innerHeight;y+=50){
         const p=warp(20,y); ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p.x+(y%100===0?(isMobile?6:12):3),p.y); ctx.stroke();
-        if(y%100===0){
-            const num=Math.floor((window.scrollY+y)/100)+1; const displayNum=num<10?"0"+num:num;
-            ctx.fillText(displayNum,p.x-4,p.y);
-        }
+        if(y%100===0){ const num=Math.floor((window.scrollY+y)/100)+1; ctx.fillText(num<10?"0"+num:num, p.x-4, p.y); }
     }
-
-    drawDatum(innerWidth*0.25,innerHeight*0.3); drawDatum(innerWidth*0.75,innerHeight*0.65);
-    drawReferenceCircle(innerWidth*0.65,innerHeight*0.25,40); drawReferenceCircle(innerWidth*0.65,innerHeight*0.25,70);
-    drawArc(innerWidth*0.3,innerHeight*0.7,60,Math.PI*1.2,Math.PI*1.8);
-    drawCornerAngle(innerWidth*0.1,innerHeight*0.15); drawCornerAngle(innerWidth*0.9,innerHeight*0.85);
-    drawDimension(innerWidth*0.4,innerHeight*0.45,innerWidth*0.6,innerHeight*0.45);
+    drawDatum(window.innerWidth*0.25,window.innerHeight*0.3); drawDatum(window.innerWidth*0.75,window.innerHeight*0.65);
+    drawReferenceCircle(window.innerWidth*0.65,window.innerHeight*0.25,40); drawReferenceCircle(window.innerWidth*0.65,window.innerHeight*0.25,70);
+    drawArc(window.innerWidth*0.3,window.innerHeight*0.7,60,Math.PI*1.2,Math.PI*1.8);
+    drawCornerAngle(window.innerWidth*0.1,window.innerHeight*0.15); drawCornerAngle(window.innerWidth*0.9,window.innerHeight*0.85);
+    drawDimension(window.innerWidth*0.4,window.innerHeight*0.45,window.innerWidth*0.6,window.innerHeight*0.45);
 }
 
 function draw(){
-    ctx.clearRect(0,0,innerWidth,innerHeight);
+    ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
     const grid = window.innerWidth < 1000 ? 60 : 120;
-
     ctx.strokeStyle="rgba(255,255,255,0.06)";
-    for(let x=0;x<=innerWidth+grid;x+=grid){ctx.beginPath();for(let y=0;y<=innerHeight+grid;y+=20){const p=warp(x,y);ctx.lineTo(p.x,p.y);}ctx.stroke();}
-    for(let y=0;y<=innerHeight+grid;y+=grid){ctx.beginPath();for(let x=0;x<=innerWidth+grid;x+=20){const p=warp(x,y);ctx.lineTo(p.x,p.y);}ctx.stroke();}
-
-    for(let x=0;x<=innerWidth+grid;x+=grid){for(let y=0;y<=innerHeight+grid;y+=grid){
+    for(let x=0;x<=window.innerWidth+grid;x+=grid){ctx.beginPath();for(let y=0;y<=window.innerHeight+grid;y+=20){const p=warp(x,y);ctx.lineTo(p.x,p.y);}ctx.stroke();}
+    for(let y=0;y<=window.innerHeight+grid;y+=grid){ctx.beginPath();for(let x=0;x<=window.innerWidth+grid;x+=20){const p=warp(x,y);ctx.lineTo(p.x,p.y);}ctx.stroke();}
+    for(let x=0;x<=window.innerWidth+grid;x+=grid){for(let y=0;y<=window.innerHeight+grid;y+=grid){
         const p=warp(x,y); const dx=p.x-mouse.x, dy=p.y-mouse.y, dist=Math.hypot(dx,dy);
-        const glow=Math.max(0,1-dist/220);
-        ctx.strokeStyle=`rgba(255,255,255,${0.25+glow*0.6})`; ctx.lineWidth=1;
+        const glow=Math.max(0,1-dist/220); ctx.strokeStyle=`rgba(255,255,255,${0.25+glow*0.6})`; ctx.lineWidth=1;
         const size = window.innerWidth < 1000 ? 2 : 4;
         ctx.beginPath(); ctx.moveTo(p.x-size,p.y); ctx.lineTo(p.x+size,p.y); ctx.moveTo(p.x,p.y-size); ctx.lineTo(p.x,p.y+size); ctx.stroke();
     }}
-
     drawBlueprintArtifacts();
     if(lights.length<3 && Math.random()<0.02) lights.push(new LightPacket());
     for(let i=lights.length-1;i>=0;i--){lights[i].update();lights[i].draw(); if(lights[i].life<=0) lights.splice(i,1);}
