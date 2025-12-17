@@ -39,7 +39,7 @@ nav {
 
 #menu-toggle, .menu-icon, .close-icon { display: none; }
 
-/* --- DESKTOP HERO LAYOUT --- */
+/* --- DESKTOP HERO LAYOUT (REVERTED) --- */
 header.hero {
     min-height:100vh;
     display:flex;
@@ -48,7 +48,7 @@ header.hero {
     position:relative;
     overflow:hidden;
     padding-top:50px;
-    padding-left: 15vw; 
+    padding-left: 11vw; 
 }
 
 .hero-main-container {
@@ -60,16 +60,17 @@ header.hero {
     flex-direction: row; 
 }
 
+/* ORIGINAL DESKTOP COORDINATES */
 .hero-title-small {
     font-family:"Syne",sans-serif;
-    font-size: 3.8vw; 
+    font-size: 5.8vw; 
     font-weight:800;
     line-height:0.85;
     letter-spacing:-0.04em;
     text-align:left;
     position:absolute; 
-    left: 55.8%; 
-    top: calc(50% - 10.9vw);
+    left: 54.8%; 
+    top: calc(50% - 11.9vw);
     transform: translateX(-100%);
     z-index:10;
     background:linear-gradient(to bottom,#fff,#999);
@@ -90,8 +91,8 @@ header.hero {
 
 .hero-details {
     position:absolute; 
-    left: 1.3vw; 
-    bottom: 6vh;
+    left: 7.3vw; 
+    bottom: 3vh;
     max-width: 33vw; 
     z-index:3;
 }
@@ -103,7 +104,9 @@ header.hero {
     margin-bottom: 3.4vh;
     line-height:1.2;
     white-space:nowrap;
-    transform: translate(0, 0); 
+    position: relative;
+    top: -20px;
+    left: 0px; 
 }
 
 .hero-details-text {
@@ -112,7 +115,9 @@ header.hero {
     color:var(--text-secondary);
     line-height:1.5;
     max-width: 100%;
-    transform: translate(0, 0);
+    position: relative;
+    top: -20px;
+    left: 0px; 
 }
 
 /* --- GENERAL STYLES --- */
@@ -143,20 +148,18 @@ footer {padding:80px var(--page-margin);display:flex;justify-content:space-betwe
     
     nav { padding: 0 var(--page-margin); }
     
-    /* BP LOGO MODS */
     .logo { 
-        font-size: 22px; /* Increased size */
-        margin-left: 15px; /* Moved slightly right */
+        font-size: 22px; 
+        margin-left: 15px; 
         z-index: 1001; 
     }
 
     .nav-links { display: none; }
     
-    /* BOHR ATOM MODEL (SMALLER) */
+    /* BOHR ATOM MODEL */
     .menu-icon {
         display: block;
-        width: 32px; /* Smaller container */
-        height: 32px;
+        width: 32px; height: 32px;
         position: relative;
         cursor: pointer;
         z-index: 1001;
@@ -165,78 +168,59 @@ footer {padding:80px var(--page-margin);display:flex;justify-content:space-betwe
     .menu-icon .nucleus {
         position: absolute;
         top: 50%; left: 50%;
-        width: 4px; height: 4px; /* Smaller nucleus */
+        width: 4px; height: 4px;
         background: #fff;
         border-radius: 50%;
         transform: translate(-50%, -50%);
         box-shadow: 0 0 8px #fff;
-        transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     .menu-icon span {
         position: absolute;
         top: 50%; left: 50%;
-        width: 26px; height: 10px; /* Smaller orbitals */
+        width: 26px; height: 10px;
         border: 1px solid rgba(255,255,255,0.4);
         border-radius: 50%;
         display: block;
-        transition: 0.7s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     .menu-icon span:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg); }
     .menu-icon span:nth-child(3) { transform: translate(-50%, -50%) rotate(-45deg); }
     
-    /* Shared Electron Styles with Light Trail */
-.menu-icon span:nth-child(4),
-.menu-icon span:nth-child(5) {
-    width: 3px; 
-    height: 3px; 
-    border: none; 
-    background: #fff;
-    position: absolute;
-    top: 50%; left: 50%;
-    border-radius: 50%;
-    /* Layered shadows create a motion blur trail effect */
-    box-shadow: 
-        0 0 4px #fff, 
-        0 0 8px #fff, 
-        -2px -2px 12px rgba(255,255,255,0.8),
-        2px 2px 12px rgba(255,255,255,0.8);
-}
+    .menu-icon span:nth-child(4),
+    .menu-icon span:nth-child(5) {
+        width: 3px; height: 3px; border: none; background: #fff;
+        position: absolute;
+        top: 50%; left: 50%;
+        border-radius: 50%;
+        /* Layered shadows create a motion blur trail effect */
+        box-shadow: 0 0 4px #fff, 0 0 8px #fff, -2px -2px 12px rgba(255,255,255,0.8), 2px 2px 12px rgba(255,255,255,0.8);
+    }
 
-/* Electron 1: 45deg Orbit - Speed increased to 0.8s */
-.menu-icon span:nth-child(4) {
-    animation: orbit-one 0.8s linear infinite;
-}
+    .menu-icon span:nth-child(4) { animation: orbit-one 0.8s linear infinite; }
+    .menu-icon span:nth-child(5) { animation: orbit-two 0.8s linear infinite; }
 
-/* Electron 2: -45deg Orbit - Speed increased to 0.8s */
-.menu-icon span:nth-child(5) {
-    animation: orbit-two 0.8s linear infinite;
-}
+    @keyframes orbit-one {
+        0%   { transform: translate(-50%, -50%) rotate(45deg) translateX(13px) translateY(0); }
+        25%  { transform: translate(-50%, -50%) rotate(45deg) translateX(0) translateY(5px); }
+        50%  { transform: translate(-50%, -50%) rotate(45deg) translateX(-13px) translateY(0); }
+        75%  { transform: translate(-50%, -50%) rotate(45deg) translateX(0) translateY(-5px); }
+        100% { transform: translate(-50%, -50%) rotate(45deg) translateX(13px) translateY(0); }
+    }
 
-/* Precise Elliptical Keyframes for Orbit One */
-@keyframes orbit-one {
-    0%   { transform: translate(-50%, -50%) rotate(45deg) translateX(13px) translateY(0); }
-    25%  { transform: translate(-50%, -50%) rotate(45deg) translateX(0) translateY(5px); }
-    50%  { transform: translate(-50%, -50%) rotate(45deg) translateX(-13px) translateY(0); }
-    75%  { transform: translate(-50%, -50%) rotate(45deg) translateX(0) translateY(-5px); }
-    100% { transform: translate(-50%, -50%) rotate(45deg) translateX(13px) translateY(0); }
-}
+    @keyframes orbit-two {
+        0%   { transform: translate(-50%, -50%) rotate(-45deg) translateX(-13px) translateY(0); }
+        25%  { transform: translate(-50%, -50%) rotate(-45deg) translateX(0) translateY(-5px); }
+        50%  { transform: translate(-50%, -50%) rotate(-45deg) translateX(13px) translateY(0); }
+        75%  { transform: translate(-50%, -50%) rotate(-45deg) translateX(0) translateY(5px); }
+        100% { transform: translate(-50%, -50%) rotate(-45deg) translateX(-13px) translateY(0); }
+    }
 
-/* Precise Elliptical Keyframes for Orbit Two */
-@keyframes orbit-two {
-    0%   { transform: translate(-50%, -50%) rotate(-45deg) translateX(-13px) translateY(0); }
-    25%  { transform: translate(-50%, -50%) rotate(-45deg) translateX(0) translateY(-5px); }
-    50%  { transform: translate(-50%, -50%) rotate(-45deg) translateX(13px) translateY(0); }
-    75%  { transform: translate(-50%, -50%) rotate(-45deg) translateX(0) translateY(5px); }
-    100% { transform: translate(-50%, -50%) rotate(-45deg) translateX(-13px) translateY(0); }
-}
-
-/* Ensure both shoot away on click */
-#menu-toggle:checked + .menu-icon span:nth-child(4),
-#menu-toggle:checked + .menu-icon span:nth-child(5) {
-    animation: electron-shoot 0.6s forwards ease-in;
-}
+    /* Ensure both shoot away on click */
+    #menu-toggle:checked + .menu-icon span:nth-child(4),
+    #menu-toggle:checked + .menu-icon span:nth-child(5) {
+        animation: electron-shoot 0.6s forwards ease-in;
+    }
 
     .close-icon {
         display: block;
@@ -301,35 +285,55 @@ footer {padding:80px var(--page-margin);display:flex;justify-content:space-betwe
 
     /* HERO LAYOUT RESTORED */
     header.hero {
-        padding-left:0; min-height: auto; padding-top: 100px; padding-bottom: 80px; height: auto; display: block; 
+        padding-left:0; min-height: 100vh; padding-top: 100px; padding-bottom: 80px; height: auto; display: block; overflow: visible;
     }
     .hero-main-container {
         display: flex; flex-direction: column; position: relative; height: auto; width: 100%; padding: 0 var(--page-margin);
     }
+    
+    /* ORIGINAL MOBILE COORDINATES */
     .hero-title-small {
-        font-size: 5.7vw; position:absolute; left:91.5%; top: calc(50% - 58.9vw); transform: translateX(-98%); z-index:10; text-align: center; white-space: nowrap; 
+        font-size: 11vw; position: absolute; 
+        left:91.5%; top: calc(50% - 62.9vw); 
+        transform: translateX(-365px) translateY(10px); z-index:10; text-align: center; white-space: nowrap; 
     }
+    
     .hero-image {
-        position:relative; left:30%; transform: translateX(-100px) translateY(40px); width: 50%; max-width: 450px; margin:0 auto -10px auto; order: 2; 
+        position:relative; left:30%; width: 50%; max-width: 450px; margin:0 auto -10px auto; order: 2; 
+ transform: scale(1.3);
+top: 80px;   /* Positive moves it down */
+    left: 5px;   /* Positive moves it right */
     }
+.hero-image img {
+    width: 100%;         /* Ensures the internal img fills the container */
+    height: auto;
+}
+    
     .hero-details {
         position:relative; left: auto; bottom: auto; text-align: center; transform: translateY(-120px) translateX(0px); max-width: 100%; order: 3; 
     }
-    .hero-details-title {
-    position: relative; /* This is the "key" to unlocking movement */
-    display: block;     /* Ensures it doesn't stay on the same line as other text */
     
-    /* ADJUST THESE NUMBERS TO MOVE IT */
-    top: -140px;  /* Negative = Up | Positive = Down */
-    left: 10px;  /* Negative = Left | Positive = Right */
+    /* ADDED position:relative but kept coordinates at 0,0 so it looks identical to original, but moves if you change the numbers */
+    .hero-details-title { 
+        position: relative;
+        white-space:normal;
+        left: 0px; 
+        top: 210px;
+        bottom: 0px; 
+        font-size: 28px; 
+        margin-bottom: 15px; 
+    }
     
-    font-size: 18px;
-    margin-bottom: 15px;
-}
-    .hero-details-text { font-size: 14px; max-width: 90%; line-height: 1.6; }
+    .hero-details-text { font-size: 14px; max-width: 90%; line-height: 1.6;
+          position: relative;
+          top: 240px;
+          left: 15px;
+         
+ }
 
     section { padding: 80px var(--page-margin); }
-    #about { grid-template-columns: 1fr; }
+    #about { grid-template-columns: 1fr; 
+             padding-top: 60px; /* Adjust this value to your liking */}
     .exp-row { grid-template-columns: 1fr; gap: 10px; }
     .wide, .narrow { grid-column: span 12; height: auto; min-height: 300px; padding: 30px; }
     footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px var(--page-margin); }
@@ -346,11 +350,7 @@ footer {padding:80px var(--page-margin);display:flex;justify-content:space-betwe
     
     <label for="menu-toggle" class="menu-icon">
         <div class="nucleus"></div>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </label>
+        <span></span> <span></span> <span></span> <span></span> </label>
 
     <label for="menu-toggle" class="close-icon"></label>
 
@@ -364,7 +364,7 @@ footer {padding:80px var(--page-margin);display:flex;justify-content:space-betwe
 
 <header class="hero" id="top">
 <div class="hero-main-container">
-    <h1 class="hero-title-small">Bibhushan Pandey.</h1>
+    <h1 class="hero-title-small">Bibhushan<br>Pandey.</h1>
     <div class="hero-image">
         <img src="image-gen-6-copy.png" alt="Bibhushan Pandey">
     </div>
@@ -466,14 +466,20 @@ function drawDimension(x1,y1,x2,y2){
     ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
 }
 
+// --- UPDATED SHOOTING STAR EFFECT ---
 class LightPacket{
     constructor(){
         const grid = window.innerWidth < 1000 ? 60 : 120;
         this.gx=Math.floor(Math.random()*(window.innerWidth/grid))*grid;
         this.gy=Math.floor(Math.random()*(window.innerHeight/grid))*grid;
         this.destX=this.gx; this.destY=this.gy; this.progress=0;
-        this.speed=0.02+Math.random()*0.03;
-        this.tailLength=0.6;
+        
+        // Speed: Fast (Shooting Star)
+        this.speed=0.15+Math.random()*0.3; 
+        
+        // Tail: Long and streaky
+        this.tailLength=0.4 + Math.random()*0.4;
+        
         this.life=100+Math.random()*100;
         this.pickNextTarget();
     }
@@ -497,7 +503,9 @@ class LightPacket{
         const pHead=warp(headX,headY); const pTail=warp(tailX,tailY);
         ctx.beginPath();
         const alpha=Math.min(this.life/20,1)*0.9;
-        ctx.strokeStyle=`rgba(255,255,255,${alpha})`; ctx.lineWidth=1.5; ctx.lineCap="round"; ctx.shadowBlur=12; ctx.shadowColor="rgba(255,255,255,1)";
+        
+        // Increased glow for shooting star feel
+        ctx.strokeStyle=`rgba(255,255,255,${alpha})`; ctx.lineWidth=1.5; ctx.lineCap="round"; ctx.shadowBlur=15; ctx.shadowColor="rgba(255,255,255,1)";
         ctx.moveTo(pTail.x,pTail.y); ctx.lineTo(pHead.x,pHead.y); ctx.stroke();
         ctx.shadowBlur=0; ctx.lineCap="butt";
     }
