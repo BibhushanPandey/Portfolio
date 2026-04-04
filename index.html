@@ -1598,6 +1598,90 @@ footer {
 
 }
 
+/* ========================================= */
+/* --- MOBILE TOOLTIP FIX (DYNAMIC PANEL) -- */
+/* ========================================= */
+@media (max-width: 1000px) {
+    .skill-tooltip {
+        /* Detaches the tooltip from the icon and locks it to the screen */
+        position: fixed !important;
+        bottom: 30px !important;
+        left: 50% !important;
+        top: auto !important;
+        transform: translate(-50%, 20px) !important;
+        
+        /* Uses 90% of the phone screen for maximum readability */
+        width: 90vw !important; 
+        max-width: 400px !important;
+        z-index: 9999 !important;
+    }
+
+    .skill-app:hover .skill-tooltip {
+        /* Pops the panel up smoothly from the bottom */
+        transform: translate(-50%, 0) !important; 
+    }
+
+    .skill-tooltip::after {
+        /* Removes the little downward pointing triangle */
+        display: none !important; 
+    }
+}
+
+/* ========================================= */
+/* --- SURGICAL MENU OVERFLOW FIX ---        */
+/* ========================================= */
+
+/* 1. Prevent Edge Bleed on Tablets/Laptops */
+@media (max-width: 1100px) and (min-width: 701px) {
+    .skills-bar-container {
+        max-width: 500px !important; 
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+/* 2. Mobile Phone Grid Fix (Stops clipping completely) */
+@media (max-width: 700px) {
+    .skills-bar-container {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 15px !important;
+        padding: 0 10px !important;
+    }
+    
+    .skill-app {
+        width: 100% !important; /* Turns icons into easy-to-tap wide buttons */
+    }
+
+    /* Force left-column menus to open inward to the right */
+    .skill-app:nth-child(odd) .skill-tooltip {
+        left: 0 !important;
+        transform: translate(0, 10px) !important;
+    }
+    .skill-app:nth-child(odd):hover .skill-tooltip {
+        transform: translate(0, -15px) !important;
+    }
+    .skill-app:nth-child(odd) .skill-tooltip::after {
+        left: 35px !important;
+        transform: none !important;
+    }
+
+    /* Force right-column menus to open inward to the left */
+    .skill-app:nth-child(even) .skill-tooltip {
+        left: auto !important;
+        right: 0 !important;
+        transform: translate(0, 10px) !important;
+    }
+    .skill-app:nth-child(even):hover .skill-tooltip {
+        transform: translate(0, -15px) !important;
+    }
+    .skill-app:nth-child(even) .skill-tooltip::after {
+        left: auto !important;
+        right: 35px !important;
+        transform: none !important;
+    }
+}
+
 </style>
 </head>
 
@@ -1903,7 +1987,7 @@ footer {
     <span class="section-tag">03 // Selected Work (Work in Progress, currently unavailable) </span>
     <div class="bento-grid">
         <div class="card wide" id="cinema-card" onclick="openGallery('cinema-modal')">
-            <h3>Cinematography</h3>
+            <h3>Visual Creations</h3>
             <p style="opacity: 0.6; margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 14px;">View Gallery <i class="fas fa-arrow-right"></i></p>
         </div>
         
