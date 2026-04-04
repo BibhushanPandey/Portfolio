@@ -2119,51 +2119,50 @@ var statusMessage = document.getElementById("my-form-status");
 if (form) {
     form.addEventListener("submit", async function(event) {
         // 1. STOPS THE REDIRECT!
-        event.preventDefault();
-    
-    // 2. Show a "Sending..." state
-    statusMessage.style.display = "block";
-    statusMessage.innerHTML = "Sending message...";
-    statusMessage.style.color = "var(--text-secondary)";
-    statusMessage.style.border = "none";
+        event.preventDefault(); 
+        
+        // 2. Show a "Sending..." state
+        statusMessage.style.display = "block";
+        statusMessage.innerHTML = "Sending message...";
+        statusMessage.style.color = "var(--text-secondary)";
+        statusMessage.style.border = "none";
+        statusMessage.style.background = "transparent";
 
-    var data = new FormData(event.target);
-    
-    // 3. Send the data silently in the background
-    fetch(event.target.action, {
-        method: form.method,
-        body: data,
-        headers: {
-            'Accept': 'application/json'
-        }
-    }).then(response => {
-        if (response.ok) {
-            // SUCCESS! 
-            statusMessage.innerHTML = "Message sent successfully! I'll get back to you soon.";
-            statusMessage.style.color = "#4CAF50"; // A nice, modern green
-            statusMessage.style.border = "1px solid rgba(76, 175, 80, 0.3)";
-            statusMessage.style.background = "rgba(76, 175, 80, 0.1)";
-            form.reset(); // Empties the input boxes for a clean slate
-        } else {
-            // ERROR HANDLING
-            response.json().then(data => {
-                if (Object.hasOwn(data, 'errors')) {
-                    statusMessage.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-                } else {
-                    statusMessage.innerHTML = "Oops! There was a problem submitting your form.";
-                }
-                statusMessage.style.color = "#FF5252"; // Red for error
-                statusMessage.style.border = "1px solid rgba(255, 82, 82, 0.3)";
-            })
-        }
-    }).catch(error => {
-        statusMessage.innerHTML = "Oops! There was a problem submitting your form.";
-        statusMessage.style.color = "#FF5252";
+        var data = new FormData(event.target);
+        
+        // 3. Send the data silently
+        fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            if (response.ok) {
+                // SUCCESS! 
+                statusMessage.innerHTML = "Message sent successfully! I'll get back to you soon.";
+                statusMessage.style.color = "#4CAF50"; 
+                statusMessage.style.border = "1px solid rgba(76, 175, 80, 0.3)";
+                statusMessage.style.background = "rgba(76, 175, 80, 0.1)";
+                form.reset(); // Clears the form
+            } else {
+                // ERROR
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        statusMessage.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        statusMessage.innerHTML = "Oops! There was a problem submitting your form.";
+                    }
+                    statusMessage.style.color = "#FF5252"; 
+                    statusMessage.style.border = "1px solid rgba(255, 82, 82, 0.3)";
+                })
+            }
+        }).catch(error => {
+            statusMessage.innerHTML = "Oops! There was a problem submitting your form.";
+            statusMessage.style.color = "#FF5252";
+        });
     });
+} else {
+    console.error("Formspree Script Error: Could not find the form ID 'my-contact-form'.");
 }
-
-// Attach this rule to the form button
-form.addEventListener("submit", handleSubmit);
 
 </script>
 </body>
