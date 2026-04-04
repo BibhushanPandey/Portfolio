@@ -2115,9 +2115,11 @@ function switchJourney(event, tabId) {
 var form = document.getElementById("my-contact-form");
 var statusMessage = document.getElementById("my-form-status");
 
-async function handleSubmit(event) {
-    // 1. STOPS THE REDIRECT! This tells the browser not to leave the page.
-    event.preventDefault(); 
+// Check if the form actually exists before trying to run code on it
+if (form) {
+    form.addEventListener("submit", async function(event) {
+        // 1. STOPS THE REDIRECT!
+        event.preventDefault();
     
     // 2. Show a "Sending..." state
     statusMessage.style.display = "block";
