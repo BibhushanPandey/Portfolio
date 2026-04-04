@@ -1800,23 +1800,25 @@ footer {
             <form class="contact-form" action="https://formspree.io/f/xqeggknp" method="POST">
     
     <div class="form-row">
-        <input type="text" name="first_name" placeholder="First Name" required>
-        <input type="text" name="last_name" placeholder="Last Name" required>
-    </div>
+                    <input type="text" name="first_name" placeholder="First Name" required>
+                    <input type="text" name="last_name" placeholder="Last Name" required>
+                </div>
 
-    <div class="form-row">
-        <input type="tel" name="phone" placeholder="Phone Number">
-        <input type="text" name="location" placeholder="Location">
-    </div>
-    
-    <input type="email" name="email" placeholder="Email Address" required>
-    
-    <input type="hidden" name="_gotcha" style="display:none !important">
-    
-    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-    
-    <button type="submit" class="submit-btn">Send Message <i class="fas fa-arrow-right"></i></button>
-</form>
+                <div class="form-row">
+                    <input type="tel" name="phone" placeholder="Phone Number">
+                    <input type="text" name="location" placeholder="Location">
+                </div>
+                
+                <input type="email" name="email" placeholder="Email Address" required>
+                
+                <input type="hidden" name="_gotcha" style="display:none !important">
+                
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                
+                <button type="submit" class="submit-btn">Send Message <i class="fas fa-arrow-right"></i></button>
+
+                <p id="my-form-status" style="display: none; text-align: center; font-family: 'Inter', sans-serif; font-size: 14px; margin-top: 15px; padding: 10px; border-radius: 8px;"></p>
+            </form>
         </div>
         
     </div>
@@ -2109,7 +2111,57 @@ function switchJourney(event, tabId) {
     event.currentTarget.classList.add('active');
 }
 
+// --- FORMSPREE BACKGROUND SENDER LOGIC ---
+var form = document.getElementById("my-contact-form");
+var statusMessage = document.getElementById("my-form-status");
 
+async function handleSubmit(event) {
+    // 1. STOPS THE REDIRECT! This tells the browser not to leave the page.
+    event.preventDefault(); 
+    
+    // 2. Show a "Sending..." state
+    statusMessage.style.display = "block";
+    statusMessage.innerHTML = "Sending message...";
+    statusMessage.style.color = "var(--text-secondary)";
+    statusMessage.style.border = "none";
+
+    var data = new FormData(event.target);
+    
+    // 3. Send the data silently in the background
+    fetch(event.target.action, {
+        method: form.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            // SUCCESS! 
+            statusMessage.innerHTML = "Message sent successfully! I'll get back to you soon.";
+            statusMessage.style.color = "#4CAF50"; // A nice, modern green
+            statusMessage.style.border = "1px solid rgba(76, 175, 80, 0.3)";
+            statusMessage.style.background = "rgba(76, 175, 80, 0.1)";
+            form.reset(); // Empties the input boxes for a clean slate
+        } else {
+            // ERROR HANDLING
+            response.json().then(data => {
+                if (Object.hasOwn(data, 'errors')) {
+                    statusMessage.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                } else {
+                    statusMessage.innerHTML = "Oops! There was a problem submitting your form.";
+                }
+                statusMessage.style.color = "#FF5252"; // Red for error
+                statusMessage.style.border = "1px solid rgba(255, 82, 82, 0.3)";
+            })
+        }
+    }).catch(error => {
+        statusMessage.innerHTML = "Oops! There was a problem submitting your form.";
+        statusMessage.style.color = "#FF5252";
+    });
+}
+
+// Attach this rule to the form button
+form.addEventListener("submit", handleSubmit);
 
 </script>
 </body>
