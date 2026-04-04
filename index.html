@@ -73,6 +73,137 @@ nav {
         z-index: 10;
     }
 
+
+/* ========================================= */
+/* --- SKILLS APP BAR STYLES ---             */
+/* ========================================= */
+
+.skills-bar-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows them to wrap to a new line if the screen is too small */
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+/* The App Logo Box */
+.skill-app {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+/* If you use real image logos instead of icons */
+.skill-app img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.6);
+    transition: 0.3s ease;
+}
+
+/* Hover Effect for the App Box */
+.skill-app:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+.skill-app:hover img {
+    filter: grayscale(0%) opacity(1);
+}
+
+/* --- THE HOVER CALLOUT BOX (TOOLTIP) --- */
+.skill-tooltip {
+    position: absolute;
+    bottom: 100%; /* Forces it to sit perfectly above the app icon */
+    left: 50%;
+    transform: translate(-50%, 10px); /* Starts slightly lower to animate up */
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 18px;
+    border-radius: 12px;
+    width: 220px; /* Fixed width for the text */
+    pointer-events: none; /* Stops it from glitching your mouse hover */
+    opacity: 0;
+    transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 100;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+}
+
+/* The little triangle pointing down from the box */
+.skill-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(255, 255, 255, 0.15) transparent transparent transparent;
+}
+
+/* Triggers the box to appear when you hover */
+.skill-app:hover .skill-tooltip {
+    opacity: 1;
+    transform: translate(-50%, -15px); /* Slides up and locks into place */
+}
+
+/* Typography inside the box */
+.tooltip-title {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* The visual "How much I know" bar */
+.tooltip-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    margin-bottom: 12px;
+    overflow: hidden;
+}
+
+.tooltip-progress {
+    height: 100%;
+    background: #fff;
+    border-radius: 2px;
+}
+
+/* The "What I know" text */
+.tooltip-desc {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    white-space: normal; 
+    text-align: left;
+}
+
+
+
+
+
 /* --- CHEMICAL REACTION TRANSITION STYLES --- */
 .reaction-text {
     display: inline-block;
@@ -628,6 +759,11 @@ footer {padding:80px var(--page-margin);display:flex;justify-content:space-betwe
     border-color: rgba(255, 255, 255, 0.4);
     background: rgba(255, 255, 255, 0.08);
 }
+
+/* Mobile Skills Override */
+    .skill-category {
+        padding: 30px !important;
+    }
 
 .modal-overlay {
     display: none; /* Keeps it hidden until clicked */
@@ -1652,6 +1788,116 @@ footer {
 </div>
 </section>
 
+<section id="skills" style=" text-align: center; padding-top: 30px; padding-bottom: 50px;">
+    
+    <span class="section-tag" style="display: inline-block; font-family: 'Space Mono', monospace; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255, 255, 255, 1);">Skills</span>
+    
+    <div class="skills-bar-container" style="margin-top: 30px;">
+        
+        <div class="skill-app">
+            <img src="davinci.png" alt="DaVinci Resolve Logo">
+            
+            <div class="skill-tooltip">
+                <span class="tooltip-title">DaVinci Resolve</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 90%;"></div></div>
+                <span class="tooltip-desc">Advanced color grading, multi-cam editing, and audio syncing.</span>
+            </div>
+        </div>
+
+        <div class="skill-app">
+            <img src="aspen.jpeg" alt="Aspen Plus Logo">
+
+            <div class="skill-tooltip">
+                <span class="tooltip-title">DWSIM / Aspen Plus</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 50%;"></div></div>
+                <span class="tooltip-desc">Process modeling, chemical thermodynamics, and flow sheet simulation.</span>
+            </div>
+        </div>
+
+        <div class="skill-app">
+            <img src="Autocad.png" alt="Autocad Logo">
+            <div class="skill-tooltip">
+                <span class="tooltip-title">AutoCAD</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 70%;"></div></div>
+                <span class="tooltip-desc">Drafting precise P&ID diagrams, plant layouts, and 2D mechanical structures.</span>
+            </div>
+        </div>
+
+        <div class="skill-app">
+            <img src="Adobe.png" alt="Adobe Suite Logo">
+            <div class="skill-tooltip">
+                <span class="tooltip-title">Adobe Creative Suite</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 80%;"></div></div>
+                <span class="tooltip-desc">Illusstrator and Photoshop for robust visual storytelling.</span>
+            </div>
+        </div>
+
+
+<div class="skill-app">
+            <img src="Research.jpg" alt="Research Gate Logo">
+            <div class="skill-tooltip">
+                <span class="tooltip-title">Academic Research</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 90%;"></div></div>
+                <span class="tooltip-desc">Published researcher with active publications. Experienced in full-cycle academic research, technical writing, and peer-review submission.</span>
+            </div>
+        </div>
+
+<div class="skill-app">
+            <i class="fas fa-language"></i>
+            <div class="skill-tooltip">
+                <span class="tooltip-title">Multilingual</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 95%;"></div></div>
+                <span class="tooltip-desc">Native/bilingual in English, Nepali, and Hindi. Beginner level in german, French and Japanese.</span>
+            </div>
+        </div>
+
+<a href="https://www.inzies.com/" target="_blank" class="skill-app" style="text-decoration: none;">
+            <i class="fas fa-music"></i>
+            <div class="skill-tooltip">
+                <span class="tooltip-title">Music</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 80%;"></div></div>
+                <span class="tooltip-desc">Drummer. Click to view our band page.</span>
+            </div>
+        </a>
+
+<div class="skill-app">
+            <i class="fas fa-project-diagram"></i>
+            <div class="skill-tooltip">
+                <span class="tooltip-title">Project Management</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 90%;"></div></div>
+                <span class="tooltip-desc">End-to-end program execution. Specializing in cross-functional team leadership, budget optimization, and global vendor negotiations.</span>
+            </div>
+        </div>
+
+        <div class="skill-app">
+            <i class="fas fa-tools"></i>
+            <div class="skill-tooltip">
+                <span class="tooltip-title">Plant Operations</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 80%;"></div></div>
+                <span class="tooltip-desc">Supervision of daily production lines, machinery troubleshooting, and scheduling preventive maintenance.</span>
+            </div>
+        </div>
+
+<div class="skill-app">
+            <i class="fas fa-clipboard-check"></i>
+            <div class="skill-tooltip">
+                <span class="tooltip-title">Quality Assurance</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 85%;"></div></div>
+                <span class="tooltip-desc">Implementation of ISO 22000, WHO hygiene standards, and daily quality control of products.</span>
+            </div>
+        </div>
+
+<div class="skill-app">
+            <i class="fas fa-route"></i>
+            <div class="skill-tooltip">
+                <span class="tooltip-title">Operations & Logistics</span>
+                <div class="tooltip-bar"><div class="tooltip-progress" style="width: 90%;"></div></div>
+                <span class="tooltip-desc">Orchestrating complex operational workflows. Experienced in vendor negotiation, resource allocation, and maintaining seamless logistical execution under pressure.</span>
+            </div>
+        </div>
+
+    </div>
+</section>
 
 <section id="work">
     <span class="section-tag">03 // Selected Work (Work in Progress, currently unavailable) </span>
@@ -1770,7 +2016,7 @@ footer {
     </div>
 </div>
 
-<section id="contact" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 20px;">
+<section id="contact" style="margin-top: 20px;">
     <span class="section-tag">04 // Contact</span>
     
     <div class="contact-container">
@@ -1797,7 +2043,7 @@ footer {
         </div>
 
         <div class="contact-form-wrapper">
-            <form id="my-contact-form" class="contact-form" action="https://formspree.io/f/xqeggknp" method="POST">
+            <form class="contact-form" class="contact-form" action="https://formspree.io/f/xqeggknp" method="POST">
     
     <div class="form-row">
                     <input type="text" name="first_name" placeholder="First Name" required>
