@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Bibhushan Pandey | Engineering & Visuals </title>
 
-<link rel="icon" type="image/png" href="photos/favicon.svg">
-<link rel="apple-touch-icon" href="photos/favicon.svg">
+<link rel="icon" type="image/png" href="favicon.svg">
+<link rel="apple-touch-icon" href="favicon.svg">
 
 <meta name="title" content="Bibhushan Pandey | Engineering & Visuals">
 <meta name="description" content="Chemical Engineer and Visual Creator based in Nepal. Specializing in process engineering, production management, and creative video direction.">
@@ -954,11 +954,11 @@
         }
 
         .wide {
-            grid-column: span 7;
+            grid-column: span 6;
         }
 
         .narrow {
-            grid-column: span 5;
+            grid-column: span 6;
         }
 
         footer {
@@ -2908,19 +2908,131 @@
 
     <div id="engineering-modal" class="modal-overlay">
         <div class="modal-header">
-            <h2>Engineering & Operations</h2>
+            <div class="gallery-tabs">
+                <button id="btn-eng-certificates" class="tab-btn active" onclick="showEngCertificates()">Certificates</button>
+                <button id="btn-eng-papers" class="tab-btn" onclick="showEngPapers()">Papers</button>
+            </div>
             <button class="close-btn" onclick="closeGallery('engineering-modal')"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-content">
-            <div class="gallery-grid active" style="display: grid; padding-bottom: 80px;">
-                <div class="gallery-item"><img src="https://via.placeholder.com/600x400/222/fff?text=P%26ID+Schematic"
-                        alt="P&ID Diagram"></div>
-                <div class="gallery-item"><img src="https://via.placeholder.com/600x400/222/fff?text=QC+Data+Dashboard"
-                        alt="Quality Control Dashboard"></div>
-                <div class="gallery-item"><img src="https://via.placeholder.com/400x600/222/fff?text=AutoCAD+Draft"
-                        alt="AutoCAD Draft"></div>
-                <div class="gallery-item"><img src="https://via.placeholder.com/600x400/222/fff?text=Plant+Operations"
-                        alt="Plant Operations"></div>
+            <div id="eng-certificates-grid" class="gallery-grid tab-content active" style="padding-bottom: 80px;">
+                
+                <!-- CERTIFICATE 1 -->
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
+                    <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
+                        <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
+                        <img src="photos/Business Analysis and Process Management.png" alt="Business Analysis" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Business Analysis and Process Management</h3>
+                        <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> Coursera</p>
+                        <a href="photos/Business Analysis and Process Management.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE 2 -->
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
+                    <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
+                        <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
+                        <img src="photos/Energy Resources Solar Energy.png" alt="Solar Energy" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Energy Resources Solar Energy</h3>
+                        <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> Coursera</p>
+                        <a href="photos/Energy Resources Solar Energy.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE 3 -->
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
+                    <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
+                         <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
+                        <img src="photos/Gender and Environment.png" alt="UNITAR Gender and Environment" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Gender and Environment</h3>
+                        <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> United Nations (UNITAR)</p>
+                        <a href="photos/Gender and Environment.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE 4 -->
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
+                    <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
+                         <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
+                        <img src="photos/Google Ads B.png" alt="Google Ads" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Google Ads</h3>
+                        <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> Google</p>
+                        <a href="photos/Google Ads B.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
+                
+                <!-- CERTIFICATE 5 -->
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
+                    <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
+                         <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
+                        <img src="photos/Investment Risk Management.png" alt="Investment Risk Management" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Investment Risk Management</h3>
+                        <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> Coursera</p>
+                        <a href="photos/Investment Risk Management.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE 6 -->
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
+                    <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
+                         <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
+                        <img src="photos/Leadership and People Management.png" alt="Leadership and People Management" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Leadership and People Management</h3>
+                        <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> Unknown</p>
+                        <a href="photos/Leadership and People Management.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE 7 -->
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
+                    <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
+                         <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
+                        <img src="photos/CertificateOfCompletion_Project Management Foundations.png" alt="PMI Project Management Foundations" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Project Management Foundations</h3>
+                        <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> Project Management Institute (PMI) / LinkedIn</p>
+                        <a href="photos/CertificateOfCompletion_Project Management Foundations.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div id="eng-papers-grid" class="gallery-grid tab-content" style="padding-bottom: 80px;">
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 20px; line-height: 1.4; color: #fff;">Physio-chemical analysis of water from different altitudes of Kathmandu Valley, Nepal</h3>
+                    <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Authors:</strong> Purnima Mahara, Yugesh Paudel, Priya Chaudhary, Bibhushan Pandey</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <p style="opacity: 0.5; font-family: 'Space Mono', monospace; font-size: 14px; margin: 0;">July 2024 &bull; ResearchGate</p>
+                        <a href="https://scholar.google.com/scholar?q=Physio-chemical+analysis+of+water+from+different+altitudes+of+Kathmandu+Valley,+Nepal" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px;">Read Paper <i class="fas fa-external-link-alt" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 20px; line-height: 1.4; color: #fff;">An Evaluation of Physicochemical Analysis and Water Quality Index of Ratuwa River of Damak Jhapa Nepal</h3>
+                    <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Authors:</strong> Bibhushan Pandey, Priya Chaudhary, Yugesh Paudel</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <p style="opacity: 0.5; font-family: 'Space Mono', monospace; font-size: 14px; margin: 0;">June 2018 &bull; ResearchGate</p>
+                        <a href="https://scholar.google.com/scholar?q=An+Evaluation+of+Physicochemical+Analysis+and+Water+Quality+Index+of+Ratuwa+River+of+Damak+Jhapa+Nepal" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px;">Read Paper <i class="fas fa-external-link-alt" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
+                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 20px; line-height: 1.4; color: #fff;">Drinking Water Quality of Kathmandu Valley</h3>
+                    <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Authors:</strong> Bibhushan Pandey</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                        <p style="opacity: 0.5; font-family: 'Space Mono', monospace; font-size: 14px; margin: 0;">February 2015 &bull; Nepal Journal of Science and Technology</p>
+                        <a href="https://scholar.google.com/scholar?q=Drinking+Water+Quality+of+Kathmandu+Valley+Bibhushan+Pandey" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px;">Read Paper <i class="fas fa-external-link-alt" style="margin-left: 6px;"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -3180,10 +3292,16 @@
         function openGallery(modalId) {
             document.getElementById(modalId).style.display = 'block';
             document.body.style.overflow = 'hidden';
+            if (modalId === 'cinema-modal') {
+                window.history.pushState(null, '', '#visual-creations');
+            } else if (modalId === 'engineering-modal') {
+                window.history.pushState(null, '', '#engineering');
+            }
         }
         function closeGallery(modalId) {
             document.getElementById(modalId).style.display = 'none';
             document.body.style.overflow = 'auto';
+            window.history.pushState(null, '', window.location.pathname + window.location.search);
         }
 
         // --- 2. TAB SWITCHING LOGIC ---
@@ -3198,6 +3316,19 @@
             document.getElementById('photo-grid').classList.remove('active');
             document.getElementById('btn-videos').classList.add('active');
             document.getElementById('btn-photos').classList.remove('active');
+        }
+
+        function showEngCertificates() {
+            document.getElementById('eng-certificates-grid').classList.add('active');
+            document.getElementById('eng-papers-grid').classList.remove('active');
+            document.getElementById('btn-eng-certificates').classList.add('active');
+            document.getElementById('btn-eng-papers').classList.remove('active');
+        }
+        function showEngPapers() {
+            document.getElementById('eng-papers-grid').classList.add('active');
+            document.getElementById('eng-certificates-grid').classList.remove('active');
+            document.getElementById('btn-eng-papers').classList.add('active');
+            document.getElementById('btn-eng-certificates').classList.remove('active');
         }
 
         // --- 3. LIGHTBOX LOGIC ---
@@ -3356,6 +3487,18 @@
                 }
             }, 300);
         }
+
+        // ==========================================
+        // MODAL ROUTING LOGIC
+        // ==========================================
+        window.addEventListener('DOMContentLoaded', () => {
+            const currentHash = decodeURIComponent(window.location.hash).toLowerCase();
+            if (currentHash === '#visual-creations' || currentHash === '#visual creations') {
+                openGallery('cinema-modal');
+            } else if (currentHash === '#engineering') {
+                openGallery('engineering-modal');
+            }
+        });
 
     </script>
 </body>
