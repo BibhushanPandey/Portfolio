@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Bibhushan Pandey | Engineering & Visuals </title>
 
-<link rel="icon" type="image/png" href="favicon.svg">
-<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
 
 <meta name="title" content="Bibhushan Pandey | Engineering & Visuals">
 <meta name="description" content="Chemical Engineer and Visual Creator based in Nepal. Specializing in process engineering, production management, and creative video direction.">
@@ -951,6 +951,40 @@
         .card h3 {
             font-family: "Syne", sans-serif;
             font-size: 32px;
+        }
+
+        /* --- VISUAL CREATIONS & ENGINEERING CARD HOVER BLUR --- */
+        #cinema-card, #engineering-card {
+            position: relative;
+            overflow: hidden;
+            z-index: 1; /* Establishes stacking context so the pseudo-element sits behind text but above the inline background */
+        }
+
+        #cinema-card::before, #engineering-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(40, 40, 40, 0.25); /* Subtle dark glass tint */
+            backdrop-filter: blur(18px); /* Strong glassmorphism blur */
+            -webkit-backdrop-filter: blur(18px);
+            opacity: 0;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+            border-radius: inherit;
+        }
+
+        #cinema-card:hover::before, #engineering-card:hover::before {
+            opacity: 1;
+        }
+
+        #cinema-card h3, #cinema-card p, #engineering-card h3, #engineering-card p {
+            position: relative;
+            z-index: 2;
+            transition: transform 0.4s ease, text-shadow 0.4s ease;
+        }
+        
+        #cinema-card:hover h3, #cinema-card:hover p, #engineering-card:hover h3, #engineering-card:hover p {
+            transform: translateY(-4px); /* Gentle float up on hover */
         }
 
         .wide {
@@ -2723,10 +2757,10 @@
                 <p style="opacity: 0.9; margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 14px; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">View Gallery <i class="fas fa-arrow-right"></i></p>
             </div>
 
-            <div class="card narrow" id="engineering-card" onclick="openGallery('engineering-modal')">
-                <h3>Engineering</h3>
-                <p style="opacity: 0.6; margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 14px;">View
-                    Gallery <i class="fas fa-arrow-right"></i></p>
+            <!-- IMPORTANT: Update 'url' with your own image, eg: photos/engineering-cover.jpg -->
+            <div class="card narrow" id="engineering-card" onclick="openGallery('engineering-modal')" style="background: linear-gradient(to bottom, rgba(0,0,0,0) 20%, rgba(0,0,0,0.85) 100%), url('photos/engineering-cover.jpg') center/cover no-repeat; cursor: pointer;">
+                <h3 style="text-shadow: 0 4px 20px rgba(0,0,0,0.8);">Engineering</h3>
+                <p style="opacity: 0.9; margin-top: 10px; font-family: 'Space Mono', monospace; font-size: 14px; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">View Gallery <i class="fas fa-arrow-right"></i></p>
             </div>
         </div>
     </section>
@@ -2997,39 +3031,12 @@
                 <!-- CERTIFICATE 7 -->
                 <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
                     <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
-                         <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
-                        <img src="photos/CertificateOfCompletion_Project Management Foundations.png" alt="PMI Project Management Foundations Part 1" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                        <img src="photos/CertificateOfCompletion_Project Management Foundations_3-1.png" alt="PMI Project Management Foundations" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
                     </div>
                     <div style="flex: 1; min-width: 250px;">
-                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Project Management Foundations (Part 1)</h3>
+                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Project Management Foundations</h3>
                         <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> Project Management Institute (PMI) / LinkedIn</p>
-                        <a href="photos/CertificateOfCompletion_Project Management Foundations.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
-                    </div>
-                </div>
-
-                <!-- CERTIFICATE 8 -->
-                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
-                    <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
-                         <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
-                        <img src="photos/CertificateOfCompletion_Project Management Foundations_2.png" alt="PMI Project Management Foundations Part 2" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-                    </div>
-                    <div style="flex: 1; min-width: 250px;">
-                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Project Management Foundations (Part 2)</h3>
-                        <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> Project Management Institute (PMI) / LinkedIn</p>
-                        <a href="photos/CertificateOfCompletion_Project Management Foundations_2.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
-                    </div>
-                </div>
-
-                <!-- CERTIFICATE 9 -->
-                <div class="cv-desktop" style="grid-column: 1 / -1; padding: 25px; border-radius: 8px; text-align: left; margin-bottom: 20px; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; flex-wrap: wrap; gap: 25px; align-items: center;">
-                    <div style="flex-shrink: 0; width: clamp(150px, 100%, 250px);">
-                         <!-- UPDATE THE SRC HERE TO YOUR CERTIFICATE SCREENSHOT -->
-                        <img src="photos/CertificateOfCompletion_Project Management Foundations_3.png" alt="PMI Project Management Foundations Part 3" style="width: 100%; height: auto; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-                    </div>
-                    <div style="flex: 1; min-width: 250px;">
-                        <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 22px; color: #fff;">Project Management Foundations (Part 3)</h3>
-                        <p style="opacity: 0.8; margin-bottom: 15px; font-size: 16px;"><strong>Issuing Organization:</strong> Project Management Institute (PMI) / LinkedIn</p>
-                        <a href="photos/CertificateOfCompletion_Project Management Foundations_3.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
+                        <a href="photos/CertificateOfCompletion_Project Management Foundations_3-1.pdf" target="_blank" style="color: #fff; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; opacity: 0.9; padding: 8px 16px; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; display: inline-block;">View Certificate PDF <i class="fas fa-file-pdf" style="margin-left: 6px;"></i></a>
                     </div>
                 </div>
             </div>
