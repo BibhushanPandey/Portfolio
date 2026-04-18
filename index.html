@@ -889,8 +889,10 @@
             /* Negative = UP, Positive = DOWN */
             left: 0px;
             /* Negative = LEFT, Positive = RIGHT */
+            max-width: 450px;
             
-            max-width: 600px; /* <--- INCREASED THIS FROM 450px */
+            /* THE FIX: Forces the text to stay on one line until it hits your <br> tags */
+            white-space: nowrap; 
             
             line-height: 1.15;
             text-align: center;
